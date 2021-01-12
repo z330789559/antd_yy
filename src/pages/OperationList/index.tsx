@@ -1,7 +1,7 @@
 /** Uuid: 7adba566 title: 基本使用 desc: 基本使用情况 */
 import React, {useRef} from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
-import {Button, Dropdown, Input, Menu} from 'antd';
+import {Button, Dropdown, Input, Menu,Radio} from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProCard from '@ant-design/pro-card';
 import './index.css';
@@ -11,6 +11,9 @@ import {FormattedMessage} from "../TableList";
 import {useIntl} from "umi";
 import ProTable from "../TableList";
 import {queryRule} from "../TableList/service";
+import Form from './Form'
+import SmallTable from './EditTable'
+import Search from './Search'
 
 const OperationList=() => {
   const intl = useIntl();
@@ -107,27 +110,27 @@ const OperationList=() => {
       },
     ];
      return  <ProTable<TableListItem>
-       headerTitle={{}}
-     //   headerTitle={intl.formatMessage({
-     //   id: 'pages.searchTable.title',
-     //   defaultMessage: '查询表格',
-     // })}
+       // headerTitle={{}}
+       headerTitle={intl.formatMessage({
+       id: 'pages.searchTable.title',
+       defaultMessage: '查询表格',
+     })}
        actionRef={actionRef}
        rowKey="key"
-     //   search={{
-     //   labelWidth: 120,
-     // }}
-     //   toolBarRender={() => [
-     //   <Button
-     //     type="primary"
-     //     key="primary"
-     //     onClick={() => {
-     //       handleModalVisible(true);
-     //     }}
-     //   >
-     //     <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
-     //   </Button>,
-     // ]}
+       search={{
+       labelWidth: 120,
+     }}
+       toolBarRender={() => [
+       <Button
+         type="primary"
+         key="primary"
+         onClick={() => {
+           handleModalVisible(true);
+         }}
+       >
+         <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
+       </Button>,
+     ]}
        request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
        columns={columns}
        />
@@ -179,28 +182,67 @@ const OperationList=() => {
            */
         ],
       }}
-      content={content()}
-        tabList={[
-          {
-            tab: '基本信息',
-            key: 'base',
-          },
-          {
-            tab: '详细信息',
-            key: 'info',
-          },
-        ]}
-        footer={[
+
+        // tabList={[
+        //   {
+        //     tab: '基本信息',
+        //     key: 'base',
+        //   },
+        //   {
+        //     tab: '详细信息',
+        //     key: 'info',
+        //   },
+        // ]}
+        // footer={[
+        //   <Button key="3">重置</Button>,
+        //   <Button key="2" type="primary">
+        //     提交
+        //   </Button>,
+        // ]}
+        >
+      <ProCard direction="column" gutter={[0, 0]}>
+
+    <div style={{display:'flex',flexDirection:'row'}}>
+   <div style={{flex:'1'}}>
+     <Form/>
+   </div>
+      <div  style={{flex:'2'}}>
+       <SmallTable/>
+      </div>
+
+    </div>
+        <div style={{textAlign:'center'}}>
           <Button key="3">重置</Button>,
           <Button key="2" type="primary">
             提交
-          </Button>,
-        ]}
-        >
+          </Button>
+        </div>
+      </ProCard>
 
-  <ProCard direction="column" ghost gutter={[0, 0]}>
-    <ProCard style={{height: 200}}/>
-
+      <ProCard style={{ height: 20, backgroundColor:"rgb(239 242 245)" }} />
+  <ProCard direction="column" gutter={[0, 0]}>
+    <div style={{textAlign:'left',overflow:'hidden',height:"60px"}}>
+      <Button key="3" type="primary" style={{marginRight:'10px'}}> 成交记录</Button>,
+      <Button key="2" style={{marginRight:'10px'}} >
+        持仓get
+      </Button>
+      <Button key="2" style={{marginRight:'10px'}}>
+        持仓get
+      </Button>
+      <Button key="2" style={{marginRight:'10px'}}>
+        持仓get
+      </Button>
+      <Button key="2" style={{marginRight:'10px'}}>
+        持仓get
+      </Button>
+      <Button key="2" style={{marginRight:'10px'}}>
+        持仓get
+      </Button>
+    </div>
+    <div style={{overflow:'hidden',height:"60px"}}>
+    <Search/>
+    </div>
+    {content()}
   </ProCard>
 </PageContainer>
 )
